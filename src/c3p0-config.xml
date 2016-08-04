@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<c3p0-config>
+
+	<default-config>
+	
+		<property name="driverClass">com.mysql.jdbc.Driver</property>
+
+		<!--<property name="jdbcUrl">jdbc:mysql:///hotel?useUnicode=true&characterEncoding=utf8</property> -->
+		<!-- <property name="jdbcUrl"><![CDATA[jdbc:mysql://localhost:3306/<要连接的数据库>?useUnicode=true&characterEncoding=utf8]]></property> -->
+
+		<property name="jdbcUrl">jdbc:mysql:///ordersystem</property>
+		<property name="user">root</property>
+		<property name="password">06dmysql</property>
+		<property name="initialPoolSize">5</property>
+		<property name="maxPoolSize">10</property>
+		
+	</default-config>
+	
+</c3p0-config>
