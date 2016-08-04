@@ -1,6 +1,8 @@
 # orderSystem
 一个订餐系统
 
+工具：myeclipse2016 数据库：mysql 数据库连接方式：DBUtils
+
 # 订餐系统功能：
   1. 餐桌模块
   2. 菜类别模块(菜系)
@@ -25,3 +27,5 @@
 	2、在各层类中需要定义一个下层的类，并使用。由于只需要使用单列就ok,所有写了一个工厂类来实现单列。
 		protected FoodTypeService foodTypeService = 
 						BeanFactory.getInstance("foodTypeService", FoodTypeService.class);
+		配置文件：instance.properties
+		工厂类：com.uiyllong.utils.BeanFactory
