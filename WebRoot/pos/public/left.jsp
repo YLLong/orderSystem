@@ -95,7 +95,7 @@ body {
 			</div>
             <ul class="MenuLevel2">
             	<li class="level2 level2Style">
-                    <a target="right" href="${pageContext.request.contextPath }/pos/boardList.jsp">餐桌管理</a>
+                    <a target="right" href="${pageContext.request.contextPath }/dinnertable?method=list">餐桌管理</a>
 				</li>
                 <li class="level2 level2Style">
                 	<a target="right" href="${pageContext.request.contextPath }/foodtype?method=list">菜系管理</a>

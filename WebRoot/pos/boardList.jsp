@@ -1,4 +1,5 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -57,51 +58,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>	
 		<!--显示数据列表 -->
         <tbody id="TableData">
-		
-			<tr class="TableDetail1">
-				<td align="center">1&nbsp;</td>
-				<td align="center"> 纽约&nbsp;</td>
-				<td align="center">预定</td>
-				<td align="center">2014-12-08 23:31:12</td>
-				<td>
-					<a href="/wirelessplatform/board.html?method=update&id=1&isBook=0" class="FunctionButton">退桌</a>				
-					<a href="/wirelessplatform/board.html?method=delete&id=1" onClick="return delConfirm();"class="FunctionButton">删除</a>				
-				</td>
-			</tr>
-        
-			<tr class="TableDetail1">
-				<td align="center">2&nbsp;</td>
-				<td align="center"> 巴黎&nbsp;</td>
-				<td align="center">空闲</td>
-				<td align="center"></td>
-				<td>
-					<a href="/wirelessplatform/board.html?method=update&id=2&isBook=1" class="FunctionButton">预定</a>				
-					<a href="/wirelessplatform/board.html?method=delete&id=2" onClick="return delConfirm();"class="FunctionButton">删除</a>				
-				</td>
-			</tr>
-        
-			<tr class="TableDetail1">
-				<td align="center">3&nbsp;</td>
-				<td align="center"> 丹麦&nbsp;</td>
-				<td align="center">空闲</td>
-				<td align="center"></td>
-				<td>
-					<a href="/wirelessplatform/board.html?method=update&id=3&isBook=1" class="FunctionButton">预定</a>				
-					<a href="/wirelessplatform/board.html?method=delete&id=3" onClick="return delConfirm();"class="FunctionButton">删除</a>				
-				</td>
-			</tr>
-        
-			<tr class="TableDetail1">
-				<td align="center">5&nbsp;</td>
-				<td align="center"> 伦敦&nbsp;</td>
-				<td align="center">空闲</td>
-				<td align="center"></td>
-				<td>
-					<a href="/wirelessplatform/board.html?method=update&id=5&isBook=1" class="FunctionButton">预定</a>				
-					<a href="/wirelessplatform/board.html?method=delete&id=5" onClick="return delConfirm();"class="FunctionButton">删除</a>				
-				</td>
-			</tr>
-        
+			<c:choose>
+				<c:when test="${not empty requestScope.tables }">
+					<c:forEach items="${tables }" var="table">
+							<tr class="TableDetail1">
+								<td align="center">${table.id }&nbsp;</td>
+								<td align="center">${table.tableName }&nbsp;</td>
+								<td align="center">${table.tableStatus }</td>
+								<td align="center">${table.orderDate }</td>
+								<td>
+									<a href="/wirelessplatform/board.html?method=update&id=1&isBook=0" class="FunctionButton">退桌</a>
+									<a href="/wirelessplatform/board.html?method=delete&id=1" onClick="return delConfirm();" class="FunctionButton">删除</a>
+								</td>
+							</tr>
+						</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td align="center" colspan="4">没有餐桌信息！请添加后查询。。。。</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
         </tbody>
     </table>
 	
