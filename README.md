@@ -29,3 +29,5 @@
 						BeanFactory.getInstance("foodTypeService", FoodTypeService.class);
 		配置文件：instance.properties
 		工厂类：com.uiyllong.utils.BeanFactory
+	3、在实现餐桌状态改变的时候出现了在第二个餐桌进行状态改变时，出现空指针异常。
+		我估计是异步请求的时候出了一点问题？

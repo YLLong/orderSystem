@@ -16,4 +16,19 @@ public class DinnerTableServiceImpl implements DinnerTableService {
 		return dinnerTableDao.getAll();
 	}
 
+	@Override
+	public void add(String tableName) {
+		dinnerTableDao.add(tableName);
+	}
+
+	@Override
+	public void delete(int id) {
+		dinnerTableDao.delete(id);
+	}
+
+	@Override
+	public void update(DinnerTable dinnerTable) {
+		dinnerTableDao.update(dinnerTable);
+	}
+
 }

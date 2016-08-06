@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -19,6 +20,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${pageContext.request.contextPath }/pos/style/js/page_common.js"></script>
 <link href="${pageContext.request.contextPath }/pos/style/css/common_style_blue.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/pos/style/css/index_1.css" />
+
+<script type="text/javascript">
+	$(function(){
+		$("#isorder").click(function(){
+			var val = this.innerHTML;
+			if(val=="预定") {
+				var url = this.href + "&tableStatus=1";
+				$.post(url, function(data){
+					$("#orderStatus").html("预定");
+					$("#orderDate").html(data);
+					$("#isorder").text('退订');
+				});
+			} else {
+				var url = this.href + "&tableStatus=2";
+				$.post(url, function() {
+					$("#orderStatus").html("空闲");
+					$("#orderDate").html("");
+					$("#isorder").text('预定');
+				});
+			}
+			return false;
+		});
+	})
+</script>
+
 </head>
 <body>
 <!-- 页面标题 -->
@@ -64,11 +90,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<tr class="TableDetail1">
 								<td align="center">${table.id }&nbsp;</td>
 								<td align="center">${table.tableName }&nbsp;</td>
-								<td align="center">${table.tableStatus }</td>
-								<td align="center">${table.orderDate }</td>
+								<td align="center" id="orderStatus">${table.tableStatus == 1 ? "预定":"空闲" }</td>
+								<td align="center" id="orderDate">
+									<fmt:formatDate value="${table.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/>
+								</td>
 								<td>
-									<a href="/wirelessplatform/board.html?method=update&id=1&isBook=0" class="FunctionButton">退桌</a>
-									<a href="/wirelessplatform/board.html?method=delete&id=1" onClick="return delConfirm();" class="FunctionButton">删除</a>
+									<a href="${pageContext.request.contextPath }/dinnertable?method=updateDinnerTable&id=${table.id }" class="FunctionButton" id="isorder">${table.tableStatus == 1 ? "退订":"预定" }</a>
+									<a href="${pageContext.request.contextPath }/dinnertable?method=deleteDinnerTable&id=${table.id }" onClick="return delConfirm();" class="FunctionButton">删除</a>
 								</td>
 							</tr>
 						</c:forEach>
