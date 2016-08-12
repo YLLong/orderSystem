@@ -73,22 +73,24 @@ public class DinnerTableServlet extends BaseServlet {
 		//构建对象
 		DinnerTable dinnerTable = new DinnerTable();
 		dinnerTable.setId(Integer.parseInt(id));
-		System.out.println(tableStatus);
 		dinnerTable.setTableStatus(Integer.parseInt(tableStatus));
-		Date orderDate = (Integer.parseInt(tableStatus) == 0) ? null:new Date();
+		Date orderDate = (Integer.parseInt(tableStatus) == 2) ? null:new Date();
 		dinnerTable.setOrderDate(orderDate);
 		dinnerTableService.update(dinnerTable);
 		
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String date = df.format(orderDate);
-		try {
-			PrintWriter writer = response.getWriter();
-			writer.write(date);
-		} catch (IOException e) {
-			e.printStackTrace();
+		//返回数据
+		if (orderDate != null) {
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date = df.format(orderDate);
+			PrintWriter writer;
+			try {
+				writer = response.getWriter();
+				writer.write(date);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		
-		System.out.println("id:" +id + "; tableStatus:" + tableStatus);
+//		url = request.getRequestDispatcher("/pos/boardList.jsp");
 		return url;
 	}
 	

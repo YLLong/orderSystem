@@ -21,30 +21,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="${pageContext.request.contextPath }/pos/style/css/common_style_blue.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/pos/style/css/index_1.css" />
 
-<script type="text/javascript">
-	$(function(){
-		$("#isorder").click(function(){
-			var val = this.innerHTML;
-			if(val=="预定") {
-				var url = this.href + "&tableStatus=1";
-				$.post(url, function(data){
-					$("#orderStatus").html("预定");
-					$("#orderDate").html(data);
-					$("#isorder").text('退订');
-				});
-			} else {
-				var url = this.href + "&tableStatus=2";
-				$.post(url, function() {
-					$("#orderStatus").html("空闲");
-					$("#orderDate").html("");
-					$("#isorder").text('预定');
-				});
-			}
-			return false;
-		});
-	})
-</script>
-
 </head>
 <body>
 <!-- 页面标题 -->
@@ -85,17 +61,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!--显示数据列表 -->
         <tbody id="TableData">
 			<c:choose>
-				<c:when test="${not empty requestScope.tables }">
+				<c:when test="${not empty tables }">
 					<c:forEach items="${tables }" var="table">
 							<tr class="TableDetail1">
 								<td align="center">${table.id }&nbsp;</td>
 								<td align="center">${table.tableName }&nbsp;</td>
-								<td align="center" id="orderStatus">${table.tableStatus == 1 ? "预定":"空闲" }</td>
-								<td align="center" id="orderDate">
+								<td align="center">${table.tableStatus == 1 ? "预定":"空闲" }</td>
+								<td align="center">
 									<fmt:formatDate value="${table.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/>
 								</td>
 								<td>
-									<a href="${pageContext.request.contextPath }/dinnertable?method=updateDinnerTable&id=${table.id }" class="FunctionButton" id="isorder">${table.tableStatus == 1 ? "退订":"预定" }</a>
+									<a href="${pageContext.request.contextPath }/dinnertable?method=updateDinnerTable&id=${table.id }" class="FunctionButton isorder">${table.tableStatus == 1 ? "退订":"预定" }</a>
 									<a href="${pageContext.request.contextPath }/dinnertable?method=deleteDinnerTable&id=${table.id }" onClick="return delConfirm();" class="FunctionButton">删除</a>
 								</td>
 							</tr>
@@ -115,5 +91,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="FunctionButton"><a href="${pageContext.request.contextPath }/pos/saveBoard.jsp">添加</a></div>
     </div> 
 </div>
+
+<script type="text/javascript">
+	$(function(){
+		$(".isorder").click(function(){
+			var val = $(this).text();
+			var obj = $(this);
+			if(val=="预定") {
+				var url = $(this).attr("href") + "&tableStatus=1";
+				$.post(url, function(data){
+					$(obj).parent().prev().prev().text("预定");
+					$(obj).parent().prev().text(data);
+					$(obj).text("退订");
+				});
+			} else {
+				var url = $(this).attr("href") + "&tableStatus=2";
+				$.post(url, function(data) {
+					$(obj).parent().prev().prev().text("空闲");
+					$(obj).parent().prev().text(data);
+					$(obj).text("预定");
+				});
+			}
+			return false;
+		});
+	})
+</script>
+
 </body>
 </html>
