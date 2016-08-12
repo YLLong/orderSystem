@@ -12,6 +12,10 @@
 		<servlet-name>dinnerTableServlet</servlet-name>
 		<servlet-class>com.uiyllong.servlet.DinnerTableServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>foodServlet</servlet-name>
+		<servlet-class>com.uiyllong.servlet.FoodServlet</servlet-class>
+	</servlet>
 	
 	
 	<servlet-mapping>
@@ -21,6 +25,10 @@
 	<servlet-mapping>
 		<servlet-name>dinnerTableServlet</servlet-name>
 		<url-pattern>/dinnertable</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>foodServlet</servlet-name>
+		<url-pattern>/food</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

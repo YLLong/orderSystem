@@ -1,5 +1,13 @@
 package com.uiyllong.entity;
 
+/**
+ * @author Zero_Dragon
+ *
+ */
+/**
+ * @author Zero_Dragon
+ *
+ */
 public class FoodType {
 
 	private int id;
@@ -19,6 +27,11 @@ public class FoodType {
 
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
+	}
+
+	@Override
+	public String toString() {
+		return "FoodType [id=" + id + ", typeName=" + typeName + "]";
 	}
 
 }

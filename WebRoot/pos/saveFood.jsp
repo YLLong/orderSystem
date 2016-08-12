@@ -1,4 +1,5 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -40,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 主内容区域（数据列表或表单显示） -->
 <div id="MainArea">
 	<!-- 表单内容 -->
-	<form action="#" method="post" enctype="multipart/form-data">
+	<form action="${pageContext.request.contextPath }/food?method=addFood" method="post">
 		<!-- 本段标题（分段标题） -->
 		<div class="ItemBlock_Title">
         	<img width="4" height="7" border="0" src="${pageContext.request.contextPath }/pos/style/images/item_point.gif"> 菜品信息&nbsp;
@@ -53,53 +54,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <tr>
 							<td width="80px">菜系</td>
 							<td>
-                            <select name="cid" style="width:80px">
-	                            
-			   						<option value="1" 
-			   							
-			   						>粤菜</option>
-			   						
-			   					
-			   						<option value="2" 
-			   							
-			   						>川菜</option>
-			   						
-			   					
-			   						<option value="3" 
-			   							
-			   						>湘菜</option>
-			   						
-			   					
-			   						<option value="4" 
-			   							
-			   						>东北菜</option>
-			   						
-			   					
-                            </select>
-                             *<input type="hidden" name="id" value="" /></td>
+							
+							<select name="foodType_id" style="width:80px">
+								<c:forEach items="${foodTypes }" var="foodType">
+									<option value="${foodType.id }">${foodType.typeName }</option>
+								</c:forEach>
+							</select>
+							
+                             *<input type="hidden" name="id"  /></td>
 						</tr>
 						<tr>
 							<td width="80px">菜名</td>
-							<td><input type="text" name="foodName" class="InputStyle" value=""/> *</td>
+							<td><input type="text" name="foodName" class="InputStyle" /> *</td>
 						</tr>
 						<tr>
 							<td>价格</td>
-							<td><input type="text" name="price" class="InputStyle" value=""/> *</td>
+							<td><input type="text" name="price" class="InputStyle" /> *</td>
 						</tr>
                         <tr>
 							<td>会员价格</td>
-							<td><input type="text" name="mprice" class="InputStyle" value=""/> *</td>
+							<td><input type="text" name="mprice" class="InputStyle" /> *</td>
 						</tr>
 						
 						<tr>
 							<td>简介</td>
-							<td><textarea name="introduce" class="TextareaStyle"></textarea></td>
+							<td><textarea name="intro" class="TextareaStyle"></textarea></td>
 						</tr>
 						<tr>
 							<td width="80px">菜品图片</td>
 							<td>
 								
-								<input type="file" name="imageUrl"/> *
+								<input type="file" name="img"/> *
 							</td>
 						</tr>
 					</table>

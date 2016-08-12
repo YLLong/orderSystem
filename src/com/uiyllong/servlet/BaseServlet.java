@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.uiyllong.service.DinnerTableService;
+import com.uiyllong.service.FoodService;
 import com.uiyllong.service.FoodTypeService;
 import com.uiyllong.utils.BeanFactory;
 import com.uiyllong.utils.WebUtils;
@@ -23,6 +24,7 @@ public class BaseServlet extends HttpServlet {
 
 	protected FoodTypeService foodTypeService = BeanFactory.getInstance("foodTypeService", FoodTypeService.class);
 	protected DinnerTableService dinnerTableService = BeanFactory.getInstance("dinnerTableService", DinnerTableService.class);
+	protected FoodService foodService = BeanFactory.getInstance("foodService", FoodService.class);
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
