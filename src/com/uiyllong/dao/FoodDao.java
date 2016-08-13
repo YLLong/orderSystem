@@ -3,6 +3,7 @@ package com.uiyllong.dao;
 import java.util.List;
 
 import com.uiyllong.entity.Food;
+import com.uiyllong.entity.PageBean;
 
 public interface FoodDao {
 
@@ -20,5 +21,8 @@ public interface FoodDao {
 
 	//修改菜品信息
 	void updateFood(Food food);
+
+	//分页查询
+	void pageList(PageBean<Food> pg);
 
 }

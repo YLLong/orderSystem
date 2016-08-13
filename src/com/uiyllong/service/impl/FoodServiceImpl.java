@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.uiyllong.dao.FoodDao;
 import com.uiyllong.entity.Food;
+import com.uiyllong.entity.PageBean;
 import com.uiyllong.service.FoodService;
 import com.uiyllong.utils.BeanFactory;
 
@@ -34,6 +35,11 @@ public class FoodServiceImpl implements FoodService {
 	@Override
 	public void updateFood(Food food) {
 		foodDao.updateFood(food);
+	}
+
+	@Override
+	public void pageList(PageBean<Food> pg) {
+		foodDao.pageList(pg);
 	}
 	
 }

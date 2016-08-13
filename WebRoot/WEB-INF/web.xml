@@ -4,6 +4,10 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 	
+	<welcome-file-list>
+		<welcome-file>home</welcome-file>
+	</welcome-file-list>
+	
 	<servlet>
 		<servlet-name>foodTypeServlet</servlet-name>
 		<servlet-class>com.uiyllong.servlet.FoodTypeServlet</servlet-class>
@@ -15,6 +19,10 @@
 	<servlet>
 		<servlet-name>foodServlet</servlet-name>
 		<servlet-class>com.uiyllong.servlet.FoodServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>homeServlet</servlet-name>
+		<servlet-class>com.uiyllong.servlet.HomeServlet</servlet-class>
 	</servlet>
 	
 	
@@ -29,6 +37,10 @@
 	<servlet-mapping>
 		<servlet-name>foodServlet</servlet-name>
 		<url-pattern>/food</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>homeServlet</servlet-name>
+		<url-pattern>/home</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

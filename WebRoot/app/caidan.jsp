@@ -1,4 +1,5 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -27,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div id="top">
 				<ul>
 					<!-- 循环列出餐品 -->
-					
+					<c:forEach items="${foods }" var="food">
 						<li>
 							<dl>
 								<dt>
@@ -36,93 +37,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</a>
 								</dt>
 								<dd class="f1">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">白灼虾</a>
+									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">${food.foodName }</a>
 								</dd>
 								<dd class="f2">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">&yen;36.0</a>
+									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">&yen;${food.price }</a>
 								</dd>
 							</dl>
 						</li>
-					
-						<li>
-							<dl>
-								<dt>
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">
-										<img width="214px" height="145px" src="${pageContext.request.contextPath }/app/style/images/baiqieji.jpg" />
-									</a>
-								</dt>
-								<dd class="f1">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">白切鸡</a>
-								</dd>
-								<dd class="f2">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">&yen;68.0</a>
-								</dd>
-							</dl>
-						</li>
-					
-						<li>
-							<dl>
-								<dt>
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">
-										<img width="214px" height="145px" src="${pageContext.request.contextPath }/app/style/images/kaoruzhu.JPG" />
-									</a>
-								</dt>
-								<dd class="f1">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">烤乳猪</a>
-								</dd>
-								<dd class="f2">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">&yen;68.0</a>
-								</dd>
-							</dl>
-						</li>
-					
-						<li>
-							<dl>
-								<dt>
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">
-										<img width="214px" height="145px" src="${pageContext.request.contextPath }/app/style/images/shaoe.jpg" />
-									</a>
-								</dt>
-								<dd class="f1">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">烧鹅</a>
-								</dd>
-								<dd class="f2">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">&yen;68.0</a>
-								</dd>
-							</dl>
-						</li>
-					
-						<li>
-							<dl>
-								<dt>
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">
-										<img width="214px" height="145px" src="${pageContext.request.contextPath }/app/style/images/helandou.jpg" />
-									</a>
-								</dt>
-								<dd class="f1">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">猪肉荷兰豆</a>
-								</dd>
-								<dd class="f2">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">&yen;68.0</a>
-								</dd>
-							</dl>
-						</li>
-					
-						<li>
-							<dl>
-								<dt>
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">
-										<img width="214px" height="145px" src="${pageContext.request.contextPath }/app/style/images/huangbuchaodan.jpg" />
-									</a>
-								</dt>
-								<dd class="f1">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">黄埔炒蛋</a>
-								</dd>
-								<dd class="f2">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">&yen;68.0</a>
-								</dd>
-							</dl>
-						</li>
+					</c:forEach>
 					
 				</ul>
 			</div>
@@ -139,8 +61,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 				
 				<div id="btn">
-					<ul>
-						<!-- 参看 百度, 谷歌是 左 5 右 4 -->
+				
+					当前&nbsp;${pg.currentPage }&nbsp;|&nbsp;${pg.totalPage }&nbsp;页
+					<a href="javascript:gotoPage(1)">首页</a>
+					<a href="javascript:gotoPage(${pg.currentPage - 1 })">上一页</a>
+					<a href="javascript:gotoPage(${pg.currentPage + 1 })">下一页</a>
+					<a href="javascript:gotoPage(${pg.totalPage })">末页</a>
+				
+					<!-- <ul>
+						参看 百度, 谷歌是 左 5 右 4
 						
 							<li><a
 								href="#">1</a></li>
@@ -148,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<li><a
 								href="#">2</a></li>
 						
-					</ul>
+					</ul> -->
 				</div>
 				
 					
@@ -179,33 +108,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			<div id="dish_2">
 				<ul>
-					
+				
+					<c:forEach items="${foodTypes }" var="foodType">
 						<li>
-							<a href="${pageContext.request.contextPath }/app/caidan.jsp">粤菜</a>
+							<a href="${pageContext.request.contextPath }/home?method=homeList&foodType_id=${foodType.id }">${foodType.typeName }</a>
 						</li>
-					
-						<li>
-							<a href="${pageContext.request.contextPath }/app/chuancai.jsp">川菜</a>
-						</li>
-					
-						<li>
-							<a href="${pageContext.request.contextPath }/app/chuancai.jsp">湘菜</a>
-						</li>
-					
-						<li>
-							<a href="${pageContext.request.contextPath }/app/chuancai.jsp">东北菜</a>
-						</li>
+					</c:forEach>
 					
 				</ul>
 			</div>
 			<div id="dish_3">
 				<!-- 搜索菜品表单  -->
-				<form action="#" method="post">
+				<form action="${pageContext.request.contextPath }/home?method=homeList" method="post">
 					<table width="166px">
 						<tr>
 							<td>
 								<input type="text" id="dish_name" name="foodName" class="select_value" /> 
-								<input type="hidden" value="selectFood" name="method">
+								<!-- <input type="hidden" value="selectFood" name="method"> -->
 							</td>
 						</tr>
 						<tr>
@@ -224,5 +143,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 	</div>
+	
+	<script type="text/javascript">
+		function gotoPage(page) {
+			var frm = document.forms[0];
+			frm.action = "${pageContext.request.contextPath}/home?method=homeList&currentPage=" + page;
+			alert(frm.action);
+			frm.submit();
+		}
+	</script>
+	
 </body>
 </html>

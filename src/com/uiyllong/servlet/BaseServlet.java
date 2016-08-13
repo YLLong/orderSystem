@@ -32,6 +32,9 @@ public class BaseServlet extends HttpServlet {
 		resp.setContentType("text/html;charset=UTF-8");
 		
 		String method = req.getParameter("method");
+		if (method == null) {
+			method = "home";
+		}
 		Object reslut = null;
 		try {
 			Method m = this.getClass().getMethod(method, HttpServletRequest.class, HttpServletResponse.class);

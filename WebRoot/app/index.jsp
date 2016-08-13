@@ -1,7 +1,9 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -72,24 +74,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<!--放桌子的层-->
 			<div id="center_bottom">
 				<ul style=" display:inline-table">
-					
-						<li>
-							<a href="${pageContext.request.contextPath }/app/caidan.jsp">
-								纽约&nbsp;
-							</a>
-						</li>
-					
-						<li>
-							<a href="${pageContext.request.contextPath }/app/caidan.jsp">
-								丹麦&nbsp;
-							</a>
-						</li>
-					
-						<li>
-							<a href="${pageContext.request.contextPath }/app/caidan.jsp">
-								伦敦&nbsp;
-							</a>
-						</li>
+				
+					<c:forEach items="${tables }" var="table">
+						<c:if test="${table.tableStatus != 1 }">
+							<li>
+								<a href="${pageContext.request.contextPath }/home?method=homeList&tableId=${table.id }">
+										${table.tableName }&nbsp; 
+								</a>
+							</li>
+						</c:if>
+					</c:forEach>
 					
 				</ul>
 			</div>
