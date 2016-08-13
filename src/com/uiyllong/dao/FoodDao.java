@@ -12,4 +12,13 @@ public interface FoodDao {
 	//添加菜品
 	void saveFood(Food food);
 
+	//删除菜品信息
+	void delete(int id);
+
+	//查询菜品
+	Food findFoodById(int id);
+
+	//修改菜品信息
+	void updateFood(Food food);
+
 }

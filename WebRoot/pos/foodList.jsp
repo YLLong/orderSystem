@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td>${food.price }&nbsp;</td>
 			                <td>${food.mprice }&nbsp;</td>
 							<td>
-								<a href="${pageContext.request.contextPath }/food?method=findFoodById&id=${food.id }"  class="FunctionButton">更新</a>				
+								<a href="${pageContext.request.contextPath }/food?method=findFoodById&id=${food.id }&foodType_id=${food.foodType.id }"  class="FunctionButton">更新</a>				
 								<a href="${pageContext.request.contextPath }/food?method=delete&id=${food.id }" onClick="return delConfirm();"class="FunctionButton">删除</a>				
 							</td>
 						</tr>

@@ -20,5 +20,20 @@ public class FoodServiceImpl implements FoodService {
 	public void saveFood(Food food) {
 		foodDao.saveFood(food);
 	}
+
+	@Override
+	public void delete(int id) {
+		foodDao.delete(id);
+	}
+
+	@Override
+	public Food findFoodById(int id) {
+		return foodDao.findFoodById(id);
+	}
+
+	@Override
+	public void updateFood(Food food) {
+		foodDao.updateFood(food);
+	}
 	
 }

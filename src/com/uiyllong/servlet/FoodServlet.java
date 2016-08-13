@@ -43,6 +43,12 @@ public class FoodServlet extends BaseServlet {
 		return url;
 	}
 	
+	/**
+	 * 添加菜品
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public Object addFood(HttpServletRequest request, HttpServletResponse response) {
 		Object url = null;
 		String foodType_id = request.getParameter("foodType_id");
@@ -62,6 +68,72 @@ public class FoodServlet extends BaseServlet {
 		food.setImg(img);
 		
 		foodService.saveFood(food);
+		url = "/food?method=list";
+		return url;
+	}
+	
+	/**
+	 * 删除菜品信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public Object delete(HttpServletRequest request, HttpServletResponse response) {
+		Object url = null;
+		String id = request.getParameter("id");
+		foodService.delete(Integer.parseInt(id));
+		url = "/food?method=list";
+		return url;
+	}
+	
+	/**
+	 * 根据id查询菜品信息，根据菜系id查找菜系信息 封装food
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public Object findFoodById(HttpServletRequest request, HttpServletResponse response) {
+		Object url = null;
+		String id = request.getParameter("id");
+		String foodType_id = request.getParameter("foodType_id");
+		List<FoodType> foodTypes = foodTypeService.list();
+		request.setAttribute("foodTypes", foodTypes);
+		FoodType foodType = foodTypeService.findById(Integer.parseInt(foodType_id));
+		Food food = foodService.findFoodById(Integer.parseInt(id));
+		food.setFoodType(foodType);
+		request.setAttribute("food", food);
+		url = request.getRequestDispatcher("/pos/updateFood.jsp");
+		return url;
+	}
+	
+	/**
+	 * 更新菜品信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public Object updateFood(HttpServletRequest request, HttpServletResponse response) {
+		Object url = null;
+		//接受所有数据
+		String id = request.getParameter("id");
+		String foodName = request.getParameter("foodName");
+		String foodType_id = request.getParameter("foodType_id");
+		String price = request.getParameter("price");
+		String mprice = request.getParameter("mprice");
+		String intro = request.getParameter("intro");
+		String img = "暂无修改照片";
+		//根据 foodType_id 得到 foodType
+		FoodType foodType = foodTypeService.findById(Integer.parseInt(foodType_id));
+		//封装数据
+		Food food = new Food();
+		food.setId(Integer.parseInt(id));
+		food.setFoodName(foodName);
+		food.setFoodType(foodType);
+		food.setPrice(Double.parseDouble(price));
+		food.setMprice(Double.parseDouble(mprice));
+		food.setIntro(intro);
+		food.setImg(img);
+		foodService.updateFood(food);
 		url = "/food?method=list";
 		return url;
 	}
