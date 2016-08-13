@@ -126,7 +126,8 @@ public class FoodDaoImpl implements FoodDao {
 			list.add(foodType_id);
 		}
 		if (foodName != null && !"".equals(foodName.trim())) {
-			sql.append("and foodName like '%?%' ");
+			sql.append("and f.foodName like ? ");
+			foodName = "%" + foodName + "%";
 			list.add(foodName);
 		}
 		sql.append("limit ?,?");
