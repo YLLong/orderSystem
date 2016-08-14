@@ -1,4 +1,5 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -33,9 +34,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						style="width:270px; height:290px;" />
 				</div>
 				<div class="menu3_right">
-					<p>菜名:白灼虾</p>
-					<p>价格:&nbsp;&nbsp;&yen;&nbsp;36.0</p>
-					<p>简介:粤菜白灼虾，大件！</p>
+					<p>菜名:${food.foodName }</p>
+					<p>价格:&nbsp;&nbsp;&yen;&nbsp;${food.price }</p>
+					<p>简介:${food.intro }</p>
 				</div>
 			</div>
 			<div class="menu4">
@@ -60,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			<div id="dish_2">
 				<ul>
-					
+				
 					<c:forEach items="${foodTypes }" var="foodType">
 						<li>
 							<a href="${pageContext.request.contextPath }/home?method=homeList&foodType_id=${foodType.id }">${foodType.typeName }</a>

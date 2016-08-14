@@ -113,13 +113,11 @@ public class FoodDaoImpl implements FoodDao {
 		sql.append("		f.mprice,");
 		sql.append("		f.intro,");
 		sql.append("		f.img,");
-		sql.append("		t.id,");
 		sql.append("		t.typeName ");
 		sql.append("from ");
 		sql.append("		OS_foodInfo f, ");
 		sql.append("		OS_foodType t ");
-		sql.append("where 1=1");
-		sql.append("		and f.foodType_id=t.id ");
+		sql.append("where f.foodType_id=t.id ");
 		List<Object> list = new ArrayList<Object>();
 		if (foodType_id > 0) {
 			sql.append("and f.foodType_id = ? ");

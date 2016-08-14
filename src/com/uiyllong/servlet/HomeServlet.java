@@ -88,6 +88,8 @@ public class HomeServlet extends BaseServlet {
 	public Object findFoodInfoById(HttpServletRequest request, HttpServletResponse response) {
 		Object url = null;
 		String id = request.getParameter("id");
+		List<FoodType> foodTypes = foodTypeService.list();
+		request.setAttribute("foodTypes", foodTypes);
 		Food food = foodService.findFoodById(Integer.parseInt(id));
 		request.setAttribute("food", food);
 		url = request.getRequestDispatcher("/app/caixiangxi.jsp");
