@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul>
 				<li class="dish_num"></li>
 					<li>
-						<a href="${pageContext.request.contextPath }/app/clientOrderList.jsp">
+						<a href="${pageContext.request.contextPath }/home?method=homeList">
 							<img src="${pageContext.request.contextPath }/app/style/images/call2.gif" />
 						</a>
 					</li>
@@ -61,32 +61,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div id="dish_2">
 				<ul>
 					
+					<c:forEach items="${foodTypes }" var="foodType">
 						<li>
-							<a href="${pageContext.request.contextPath }/app/caidan.jsp">粤菜</a>
+							<a href="${pageContext.request.contextPath }/home?method=homeList&foodType_id=${foodType.id }">${foodType.typeName }</a>
 						</li>
-					
-						<li>
-							<a href="${pageContext.request.contextPath }/app/chuancai.jsp">川菜</a>
-						</li>
-					
-						<li>
-							<a href="${pageContext.request.contextPath }/app/chuancai.jsp">湘菜</a>
-						</li>
-					
-						<li>
-							<a href="${pageContext.request.contextPath }/app/chuancai.jsp">东北菜</a>
-						</li>
+					</c:forEach>
 					
 				</ul>
 			</div>
 			<div id="dish_3">
 				<!-- 搜索菜品表单  -->
-				<form action="#" method="post">
+				<form action="${pageContext.request.contextPath }/home?method=homeList" method="post">
 					<table width="166px">
 						<tr>
 							<td>
 								<input type="text" id="dish_name" name="foodName" class="select_value" /> 
-								<input type="hidden" value="selectFood" name="method">
+								<!-- <input type="hidden" value="selectFood" name="method"> -->
 							</td>
 						</tr>
 						<tr>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.uiyllong.entity.Condition;
 import com.uiyllong.entity.DinnerTable;
@@ -40,6 +41,7 @@ public class HomeServlet extends BaseServlet {
 	 */
 	public Object homeList(HttpServletRequest request, HttpServletResponse response) {
 		Object url = null;
+		HttpSession session = request.getSession();
 		//餐桌号
 		@SuppressWarnings("unused")
 		String tableId = request.getParameter("tableId");
@@ -53,10 +55,19 @@ public class HomeServlet extends BaseServlet {
 		}
 		pg.setCurrentPage(Integer.parseInt(currentPage));
 		Condition condition = new Condition();
+		String type_id = null;
 		if (foodType_id == null ||"".equals(foodType_id.trim())) {
-			foodType_id = "1";
+			if (session.getAttribute("foodType_id") == null) {
+				foodType_id = "1";
+				session.setAttribute("foodType_id", foodType_id);				
+			}
+			type_id = (String) session.getAttribute("foodType_id");
+			
+		} else {
+			session.setAttribute("foodType_id", foodType_id);
+			type_id = (String) session.getAttribute("foodType_id");
 		}
-		condition.setFoodType_id(Integer.parseInt(foodType_id));
+		condition.setFoodType_id(Integer.parseInt(type_id));
 		condition.setFoodName(foodName);
 		List<FoodType> foodTypes = foodTypeService.list();
 		pg.setCondition(condition);
@@ -65,6 +76,21 @@ public class HomeServlet extends BaseServlet {
 		request.setAttribute("foods", pg.getPageData());
 		request.setAttribute("pg", pg);
 		url = request.getRequestDispatcher("/app/caidan.jsp");
+		return url;
+	}
+
+	/**
+	 * 菜品详细
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public Object findFoodInfoById(HttpServletRequest request, HttpServletResponse response) {
+		Object url = null;
+		String id = request.getParameter("id");
+		Food food = foodService.findFoodById(Integer.parseInt(id));
+		request.setAttribute("food", food);
+		url = request.getRequestDispatcher("/app/caixiangxi.jsp");
 		return url;
 	}
 	

@@ -32,15 +32,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li>
 							<dl>
 								<dt>
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">
+									<a href="${pageContext.request.contextPath }/home?method=findFoodInfoById&id=${food.id }">
 										<img width="214px" height="145px" src="${pageContext.request.contextPath }/app/style/images/baizhuoxia.jpg" />
 									</a>
 								</dt>
 								<dd class="f1">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">${food.foodName }</a>
+									<a href="${pageContext.request.contextPath }/home?method=findFoodInfoById&id=${food.id }">${food.foodName }</a>
 								</dd>
 								<dd class="f2">
-									<a href="${pageContext.request.contextPath }/app/caixiangxi.jsp">&yen;${food.price }</a>
+									<a href="${pageContext.request.contextPath }/home?method=findFoodInfoById&id=${food.id }">&yen;${food.price }</a>
 								</dd>
 							</dl>
 						</li>
@@ -63,11 +63,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div id="btn">
 				
 					当前&nbsp;${pg.currentPage }&nbsp;|&nbsp;${pg.totalPage }&nbsp;页
-					<a href="javascript:gotoPage(1)">首页</a>
-					<a href="javascript:gotoPage(${pg.currentPage - 1 })">上一页</a>
-					<a href="javascript:gotoPage(${pg.currentPage + 1 })">下一页</a>
-					<a href="javascript:gotoPage(${pg.totalPage })">末页</a>
+					<ul>
+						<li><a href="javascript:gotoPage(1)">首页</a></li>
+						<li><a href="javascript:gotoPage(${pg.currentPage - 1 })">上一页</a></li>
+						<li><a href="javascript:gotoPage(${pg.currentPage + 1 })">下一页</a></li>
+						<li><a href="javascript:gotoPage(${pg.totalPage })">末页</a></li>
 				
+					</ul>
 					<!-- <ul>
 						参看 百度, 谷歌是 左 5 右 4
 						
@@ -99,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul>
 				<li class="dish_num"></li>
 					<li>
-						<a href="${pageContext.request.contextPath }/app/clientOrderList.jsp">
+						<a href="${pageContext.request.contextPath }/home?method=homeList">
 							<img src="${pageContext.request.contextPath }/app/style/images/call2.gif" />
 						</a>
 					</li>
