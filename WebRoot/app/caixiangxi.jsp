@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="menu4">
 				
-				<a href="${pageContext.request.contextPath }/app/clientCart.jsp" style="background:url(${pageContext.request.contextPath }/app/style/images/img/order_left_corner_bg.png);">放入餐车</a>
+				<a href="${pageContext.request.contextPath }/home?method=addCart&food_id=${food.id }" style="background:url(${pageContext.request.contextPath }/app/style/images/img/order_left_corner_bg.png);">放入餐车</a>
 				<a href="#" onclick="javascript:history.go(-1);" style="background:url(${pageContext.request.contextPath }/app/style/images/img/order_right_corner_bg.png);">返回</a>
 			</div>
 		</div>
