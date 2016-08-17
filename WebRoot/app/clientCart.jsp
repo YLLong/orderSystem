@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		*/
 		// 下单
 		function genernateOrder() {
-			window.location.href = "${pageContext.request.contextPath }/app/clientOrderList.jsp";
+			window.location.href = "${pageContext.request.contextPath }/home?method=order";
 		}
 	</script>
 </head>
@@ -45,14 +45,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 		<td align="center" width="20%">操作</td>
 				 	</tr>
 				 	
-					<c:forEach items="${orders }" var="order">
+					<c:forEach items="${orders }" var="o">
 						<tr height="60">
-						 		<td align="center" width="20%">${order.getValue().food.foodName }</td>
-						 		<td align="center" width="20%">￥${order.getValue().food.price }</td>
+						 		<td align="center" width="20%">${o.getValue().food.foodName }</td>
+						 		<td align="center" width="20%">￥${o.getValue().food.price }</td>
 						 		<td align="center" width="20%">
-						 			<input type="text" value="${order.getValue().foodCount }" size="3" lang="3" onblur="alterSorder(this)"/>
+						 			<input type="text" value="${o.getValue().foodCount }" size="3" lang="3" onblur="alterSorder(this)"/>
 						 		</td>
-						 		<td align="center" width="20%">￥${order.getValue().subTotal() }</td>
+						 		<td align="center" width="20%">￥${o.getValue().subTotal() }</td>
 						 		<td align="center" width="20%">
 						 			<input type="button" value="删除" class="btn_next" lang="3" onclick="removeSorder(this)" />
 						 		</td>

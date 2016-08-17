@@ -2,10 +2,14 @@ package com.uiyllong.servlet;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,6 +29,42 @@ public class HomeServlet extends BaseServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 下单
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public Object order(HttpServletRequest request, HttpServletResponse response) {
+		Object url = null;
+		HttpSession session = request.getSession();
+		//封装 order
+		Order order = new Order();
+		order.setId(getOrderId(4));
+		String tableId = (String) request.getServletContext().getAttribute("tableId");
+		System.out.println(tableId);
+		order.setTable_id(Integer.parseInt(tableId));
+		order.setOrderDate(new Date());
+		double total = (double) session.getAttribute("total");
+		order.setTotalPrice(total);
+		orderService.ordering(order);
+		//封装 订单条目
+		@SuppressWarnings("unchecked")
+		Map<String, OrderDetail> orderMap =  (Map<String, OrderDetail>) session.getAttribute("orders");
+		for (OrderDetail orderDetail : orderMap.values()) {
+			orderDetail.setOrder_id(order.getId());
+			System.out.println(orderDetail);
+			orderService.saveOrderDetail(orderDetail);
+		}
+		Map<String, OrderDetail> ordercloneMap = new HashMap<String, OrderDetail>();
+		ordercloneMap.putAll(order.orderMap);
+		session.setAttribute("order", ordercloneMap);
+		session.removeAttribute("orders");
+		order.orderMap.clear();
+		url = request.getRequestDispatcher("/app/clientOrderList.jsp");
+		return url;
+	}
+	
 	/**
 	 * 前台进入首页显示没有再用餐桌
 	 * @param request
@@ -47,10 +87,11 @@ public class HomeServlet extends BaseServlet {
 	 */
 	public Object homeList(HttpServletRequest request, HttpServletResponse response) {
 		Object url = null;
+		ServletContext appliction = request.getServletContext();
 		HttpSession session = request.getSession();
 		//餐桌号
-		@SuppressWarnings("unused")
 		String tableId = request.getParameter("tableId");
+		appliction.setAttribute("tableId", tableId);
 		
 		String currentPage = request.getParameter("currentPage");
 		String foodType_id = request.getParameter("foodType_id");
@@ -114,7 +155,7 @@ public class HomeServlet extends BaseServlet {
 		OrderDetail orderDetail;
 		HttpSession session = request.getSession();
 		List<FoodType> foodTypes = foodTypeService.list();
-		request.setAttribute("foodTypes", foodTypes);
+		session.setAttribute("foodTypes", foodTypes);
 		String food_id = request.getParameter("food_id");
 		Food food = foodService.findFoodById(Integer.parseInt(food_id));
 		if (order.orderMap.size() > 0) {
@@ -125,13 +166,16 @@ public class HomeServlet extends BaseServlet {
 				if (food_id.equals(key)) {
 					int i = order.orderMap.get(key).getFoodCount();
 					order.orderMap.get(key).setFoodCount(i + 1);
-				} else if (count == keys.size()) {
-					orderDetail = new OrderDetail();
-					orderDetail.setFood(food);
-					orderDetail.setFoodCount(1);
-					order.orderMap.put(food_id, orderDetail);
-				} {
-					continue;					
+					break;
+				} else {
+					if (count == keys.size()) {
+						orderDetail = new OrderDetail();
+						orderDetail.setFood(food);
+						orderDetail.setFoodCount(1);
+						order.orderMap.put(food_id, orderDetail);
+					} else {
+						continue;					
+					}
 				}
 			}
 		} else {
@@ -161,6 +205,29 @@ public class HomeServlet extends BaseServlet {
 		BigDecimal b = new BigDecimal(total); 
 		total = b.setScale(1,BigDecimal.ROUND_HALF_UP).doubleValue();
 		return total;
+	}
+	
+	/**
+	 * 自动生成订单号
+	 * @return
+	 */
+	public String getOrderId(int len) {
+		int[] param = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+        Random rand = new Random();
+        for (int i = param.length; i > 1; i--) {
+            int index = rand.nextInt(i);
+            int tmp = param[index];
+            param[index] = param[i - 1];
+            param[i - 1] = tmp;
+        }
+        int result = 0;
+        for (int i = 0; i < len; i++) {
+            result = result * 10 + param[i];
+        }
+        String str= String.valueOf(System.currentTimeMillis());
+        str = str.substring(str.length()-4,str.length());
+        String orderId = str + String.valueOf(result);
+        return orderId;
 	}
 	
 }

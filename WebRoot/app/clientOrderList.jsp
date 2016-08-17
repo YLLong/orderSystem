@@ -1,4 +1,5 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -30,21 +31,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 		<td align="center" width="20%">数量</td>
 				 		<td align="center" width="20%">小计</td>
 				 	</tr>
-					
-
-					<tr height="60">
-					 		<td align="center" width="20%">烤乳猪</td>
-					 		<td align="center" width="20%">￥68.0</td>
-					 		<td align="center" width="20%">1</td>
-					 		<td align="center" width="20%">68.0</td>
-				 		</tr>
 				 	
+					<c:forEach items="${order }" var="order">
+						<tr height="60">
+						 		<td align="center" width="20%">${order.getValue().food.foodName }</td>
+						 		<td align="center" width="20%">￥${order.getValue().food.price }</td>
+						 		<td align="center" width="20%">${order.getValue().foodCount }</td>
+						 		<td align="center" width="20%">￥${order.getValue().subTotal() }</td>
+					 	</tr>
+					</c:forEach>
 
 					<tr>
 						<td colspan="6" align="right">总计:
 							<span style="font-size:36px;">&yen;</span>
 							<label
-								id="counter" style="font-size:36px">68.0</label>
+								id="counter" style="font-size:36px">${total }</label>
 						</td>
 					</tr>
 					<tr>
@@ -63,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul>
 					<li class="dish_num"></li>
 					<li>
-						<a href="${pageContext.request.contextPath }/app/clientOrderList.jsp">
+						<a href="${pageContext.request.contextPath }/home?method=homeList">
 							<img src="${pageContext.request.contextPath }/app/style/images/call2.gif" />
 						</a>
 					</li>
@@ -73,21 +74,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div id="dish_2">
 				<ul>
 					
+					<c:forEach items="${foodTypes }" var="foodType">
 						<li>
-							<a href="${pageContext.request.contextPath }/app/caidan.jsp">粤菜</a>
+							<a href="${pageContext.request.contextPath }/home?method=homeList&foodType_id=${foodType.id }">${foodType.typeName }</a>
 						</li>
-					
-						<li>
-							<a href="${pageContext.request.contextPath }/app/chuancai.jsp">川菜</a>
-						</li>
-					
-						<li>
-							<a href="${pageContext.request.contextPath }/app/chuancai.jsp">湘菜</a>
-						</li>
-					
-						<li>
-							<a href="${pageContext.request.contextPath }/app/chuancai.jsp">东北菜</a>
-						</li>
+					</c:forEach>
 					
 				</ul>
 			</div>
