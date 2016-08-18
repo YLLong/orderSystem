@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -44,26 +45,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 			</thead>
 			<!--显示数据列表 -->
-			<tbody id="TableData">
+			<tbody id="TableData" align="center">
 				
-			 		<tr height="60">
-				 		<td>烤乳猪</td>
-				 		<td>68.0</td>
-				 		<td>1</td>
+				<c:forEach items="${orderDetails }" var="orderDetail">
+					<tr height="60">
+				 		<td>${orderDetail.food.foodName }</td>
+				 		<td>${orderDetail.food.price }</td>
+				 		<td>${orderDetail.foodCount }</td>
 			 		</tr>
-			 	
-			 		<tr height="60">
-				 		<td>烤乳猪</td>
-				 		<td>68.0</td>
-				 		<td>1</td>
-			 		</tr>
-			 	
-			 		<tr height="60">
-				 		<td>白切鸡</td>
-				 		<td>68.0</td>
-				 		<td>1</td>
-			 		</tr>
-			 	
+				</c:forEach>
+				
 			</tbody>
 		</table>
 		<!-- 其他功能超链接 -->

@@ -24,6 +24,10 @@
 		<servlet-name>homeServlet</servlet-name>
 		<servlet-class>com.uiyllong.servlet.HomeServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>orderServlet</servlet-name>
+		<servlet-class>com.uiyllong.servlet.OrderServlet</servlet-class>
+	</servlet>
 	
 	
 	<servlet-mapping>
@@ -41,6 +45,10 @@
 	<servlet-mapping>
 		<servlet-name>homeServlet</servlet-name>
 		<url-pattern>/home</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>orderServlet</servlet-name>
+		<url-pattern>/order</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

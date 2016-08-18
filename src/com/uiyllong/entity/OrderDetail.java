@@ -8,6 +8,7 @@ public class OrderDetail {
 
 	private int id;
 	private String order_id; // 订单号
+	private int food_id;
 	private Food food;
 	private int foodCount;
 
@@ -47,9 +48,18 @@ public class OrderDetail {
 		this.foodCount = foodCount;
 	}
 
+	public int getFood_id() {
+		return food_id;
+	}
+
+	public void setFood_id(int food_id) {
+		this.food_id = food_id;
+	}
+
 	@Override
 	public String toString() {
-		return "OrderDetail [id=" + id + ", order_id=" + order_id + ", food=" + food + ", foodCount=" + foodCount + "]";
+		return "OrderDetail [id=" + id + ", order_id=" + order_id + ", food_id=" + food_id + ", food=" + food
+				+ ", foodCount=" + foodCount + "]";
 	}
 
 }

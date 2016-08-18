@@ -3,6 +3,9 @@ package com.uiyllong.dao.impl;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.enterprise.inject.New;
+
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import com.uiyllong.dao.DinnerTableDao;
@@ -50,11 +53,27 @@ public class DinnerTableDaoImpl implements DinnerTableDao {
 		}
 	}
 
+	/**
+	 * 更新餐桌（顶退操作）
+	 */
 	@Override
 	public void update(DinnerTable dinnerTable) {
 		String sql = "update OS_diningTable set tableStatus = ?, orderDate = ? where id = ?";
 		try {
 			JdbcUtils.getQueryRunner().update(sql, dinnerTable.getTableStatus(), dinnerTable.getOrderDate(), dinnerTable.getId());
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 根据 id 得到餐桌信息
+	 */
+	@Override
+	public DinnerTable getTableById(int id) {
+		String sql = "select * from OS_diningTable where id = ?";
+		try {
+			return JdbcUtils.getQueryRunner().query(sql, new BeanHandler<DinnerTable>(DinnerTable.class), id);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

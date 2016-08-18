@@ -41,4 +41,10 @@ public class DinnerTable {
 		this.orderDate = orderDate;
 	}
 
+	@Override
+	public String toString() {
+		return "DinnerTable [id=" + id + ", tableName=" + tableName + ", tableStatus=" + tableStatus + ", orderDate="
+				+ orderDate + "]";
+	}
+
 }

@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -39,25 +39,29 @@ public class HomeServlet extends BaseServlet {
 		Object url = null;
 		HttpSession session = request.getSession();
 		//封装 order
-		Order order = new Order();
-		order.setId(getOrderId(4));
-		String tableId = (String) request.getServletContext().getAttribute("tableId");
-		System.out.println(tableId);
-		order.setTable_id(Integer.parseInt(tableId));
-		order.setOrderDate(new Date());
+		Order order1 = new Order();
+		order1.setId(getOrderId(4));
+		String tableId = (String) session.getAttribute("tableId");
+		DinnerTable table = dinnerTableService.getTableById(Integer.parseInt(tableId));
+		order1.setTable(table);
+		order1.setOrderDate(new Date());
 		double total = (double) session.getAttribute("total");
-		order.setTotalPrice(total);
-		orderService.ordering(order);
+		order1.setTotalPrice(total);
+		orderService.ordering(order1);
 		//封装 订单条目
 		@SuppressWarnings("unchecked")
 		Map<String, OrderDetail> orderMap =  (Map<String, OrderDetail>) session.getAttribute("orders");
 		for (OrderDetail orderDetail : orderMap.values()) {
 			orderDetail.setOrder_id(order.getId());
-			System.out.println(orderDetail);
 			orderService.saveOrderDetail(orderDetail);
 		}
-		Map<String, OrderDetail> ordercloneMap = new HashMap<String, OrderDetail>();
-		ordercloneMap.putAll(order.orderMap);
+	 	Map<String, OrderDetail> ordercloneMap = new HashMap<String, OrderDetail>();
+	 	for(Iterator<Entry<String, OrderDetail>> iter = order.orderMap.entrySet().iterator();iter.hasNext();) {
+            Map.Entry<String, OrderDetail> element = iter.next();
+            String strKey = (String) element.getKey();
+            OrderDetail strObj = (OrderDetail) element.getValue();
+            ordercloneMap.put(strKey, strObj);
+	 	}
 		session.setAttribute("order", ordercloneMap);
 		session.removeAttribute("orders");
 		order.orderMap.clear();
@@ -87,11 +91,16 @@ public class HomeServlet extends BaseServlet {
 	 */
 	public Object homeList(HttpServletRequest request, HttpServletResponse response) {
 		Object url = null;
-		ServletContext appliction = request.getServletContext();
 		HttpSession session = request.getSession();
 		//餐桌号
-		String tableId = request.getParameter("tableId");
-		appliction.setAttribute("tableId", tableId);
+		String tableId;
+		if (session.getAttribute("tableId") == null) {
+			tableId = request.getParameter("tableId");
+			session.setAttribute("tableId", tableId);			
+		} else {
+			tableId = (String) session.getAttribute("tableId");
+			session.setAttribute("tableId", tableId);
+		}
 		
 		String currentPage = request.getParameter("currentPage");
 		String foodType_id = request.getParameter("foodType_id");

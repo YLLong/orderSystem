@@ -4,10 +4,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Zero_Dragon
+ *
+ */
+/**
+ * @author Zero_Dragon
+ *
+ */
 public class Order {
 
 	private String id; // 自动生成
+
 	private int table_id;
+
+	private DinnerTable table;
+
 	private Date orderDate;
 	private double totalPrice;
 	private int orderStatus; // 默认为0 未结款 1 已结账
@@ -23,12 +35,12 @@ public class Order {
 		this.id = id;
 	}
 
-	public int getTable_id() {
-		return table_id;
+	public DinnerTable getTable() {
+		return table;
 	}
 
-	public void setTable_id(int table_id) {
-		this.table_id = table_id;
+	public void setTable(DinnerTable table) {
+		this.table = table;
 	}
 
 	public Date getOrderDate() {
@@ -53,6 +65,20 @@ public class Order {
 
 	public void setOrderStatus(int orderStatus) {
 		this.orderStatus = orderStatus;
+	}
+
+	public int getTable_id() {
+		return table_id;
+	}
+
+	public void setTable_id(int table_id) {
+		this.table_id = table_id;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", table_id=" + table_id + ", table=" + table + ", orderDate=" + orderDate
+				+ ", totalPrice=" + totalPrice + ", orderStatus=" + orderStatus + ", orderMap=" + orderMap + "]";
 	}
 
 }

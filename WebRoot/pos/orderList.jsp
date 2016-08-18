@@ -1,4 +1,6 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -52,29 +54,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 			</thead>
 			<!--显示数据列表 -->
-			<tbody id="TableData">
-				
-			 		<tr height="60">
-				 		<td>15375222</td>
-				 		<td>纽约</td>
-				 		<td>2014-12-08 23:29:18.0</td>
-				 		<td>204.0</td>
-				 		
-				 			
-				 				<td>未结账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				 					
-				 				</td>
-				 			
-				 			
-				 		
+			<tbody id="TableData" align="center">
+			
+				<c:forEach items="${orderList }" var="order">
+					<tr height="60">
+				 		<td>${order.id }</td>
+				 		<td>${order.table.tableName }</td>
+				 		<td><fmt:formatDate value="${order.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+				 		<td>${order.totalPrice }</td>
+				 		<td>${order.orderStatus == 1 ? "已结账" : "未结账" }</td>
 				 		<td>
-							<a href="${pageContext.request.contextPath }/pos/orderDetail.jsp" class="FunctionButton">详细</a> 
-				 			
-				 				<a href="#" class="FunctionButton">结账</a>
-				 			
+							<a href="${pageContext.request.contextPath }/order?method=orderDetail&orderId=${order.id }" class="FunctionButton">详细</a> 
+				 			<a href="#" class="FunctionButton">结账</a>
 				 		</td>
 			 		</tr>
-			 	
+				</c:forEach>
+			
 			</tbody>
 		</table>
 		<!-- 其他功能超链接 -->

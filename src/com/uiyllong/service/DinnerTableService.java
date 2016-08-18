@@ -18,4 +18,7 @@ public interface DinnerTableService {
 	//更新餐桌状态
 	void update(DinnerTable dinnerTable);
 
+	//根据id得到餐桌信息
+	DinnerTable getTableById(int id);
+
 }

@@ -31,4 +31,9 @@ public class DinnerTableServiceImpl implements DinnerTableService {
 		dinnerTableDao.update(dinnerTable);
 	}
 
+	@Override
+	public DinnerTable getTableById(int id) {
+		return dinnerTableDao.getTableById(id);
+	}
+
 }

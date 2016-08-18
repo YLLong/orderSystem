@@ -18,4 +18,7 @@ public interface DinnerTableDao {
 	//更新餐桌信息
 	void update(DinnerTable dinnerTable);
 
+	//根据id 得到餐桌信息
+	DinnerTable getTableById(int id);
+
 }
